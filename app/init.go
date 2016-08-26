@@ -1,6 +1,15 @@
 package app
 
-import "github.com/revel/revel"
+import (
+	"petConnect/app/models"
+
+	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/mysql" //MySQL driver for gorm
+	"github.com/revel/revel"
+)
+
+//Gdb it is the main access to the database
+var Gdb *gorm.DB
 
 func init() {
 	// Filters is the default set of global filters.
@@ -21,8 +30,29 @@ func init() {
 
 	// register startup functions with OnAppStart
 	// ( order dependent )
-	// revel.OnAppStart(InitDB)
-	// revel.OnAppStart(FillCache)
+	revel.OnAppStart(InitDB)
+	//revel.InterceptMethod((*gromcontroller.GormController).Begin, revel.BEFORE)
+	//revel.InterceptMethod((*gromcontroller.GormController).Commit, revel.AFTER)
+	//revel.InterceptMethod((*gromcontroller.GormController).Rollback, revel.FINALLY)
+	//revel.OnAppStart(FillCache)
+}
+
+func InitDB() {
+
+	var err error
+	Gdb, err = gorm.Open("mysql", "root:1q2w3e4r5t6y@/petconnect?charset=utf8&parseTime=True&loc=Local")
+	if err != nil {
+		revel.ERROR.Println("FATAL", err)
+		panic(err)
+	}
+	revel.INFO.Println("About to automigrate model")
+
+	if revel.DevMode {
+		initDevData(Gdb)
+	} else {
+		Gdb.AutoMigrate(&models.Service{})
+	}
+
 }
 
 // TODO turn this into revel.HeaderFilter

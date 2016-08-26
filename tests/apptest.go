@@ -16,6 +16,13 @@ func (t *AppTest) TestThatIndexPageWorks() {
 	t.AssertContentType("text/html; charset=utf-8")
 }
 
+func (t *AppTest) TestThatServicesGetWorks() {
+	t.Get("/api/services/1")
+	t.AssertOk()
+	t.AssertContains("ServiceTest")
+	t.AssertContentType("application/json; charset=utf-8")
+}
+
 func (t *AppTest) After() {
 	println("Tear down")
 }
