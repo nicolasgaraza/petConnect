@@ -9,4 +9,4 @@ install:
   - go get github.com/go-sql-driver/mysql
   - go get github.com/jinzhu/gorm
 script:
-  - revel test petConnect
+  - revel test github.com/nicolasgaraza/petConnect
