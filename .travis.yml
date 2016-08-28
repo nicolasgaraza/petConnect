@@ -11,6 +11,6 @@ install:
   - go get github.com/go-sql-driver/mysql
   - go get github.com/jinzhu/gorm
 before_script:
-  - mysql -e 'create database petConnect;'
+  - mysql -e 'create database petconnect;'
 script:
   - revel test github.com/nicolasgaraza/petConnect
