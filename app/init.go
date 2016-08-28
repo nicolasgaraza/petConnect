@@ -1,6 +1,8 @@
 package app
 
 import (
+	"os"
+
 	"github.com/nicolasgaraza/petConnect/app/models"
 
 	"github.com/jinzhu/gorm"
@@ -39,8 +41,16 @@ func init() {
 
 func InitDB() {
 
+	var connectionString string
+
+	if os.Getenv("TRAVIS_GO_VERSION") != "" {
+		connectionString = "travis:@/petconnect?charset=utf8&parseTime=True&loc=Local"
+	} else {
+		connectionString = "root:1q2w3e4r5t6y@/petconnect?charset=utf8&parseTime=True&loc=Local"
+	}
+
 	var err error
-	Gdb, err = gorm.Open("mysql", "root:1q2w3e4r5t6y@/petconnect?charset=utf8&parseTime=True&loc=Local")
+	Gdb, err = gorm.Open("mysql", connectionString)
 	if err != nil {
 		revel.ERROR.Println("FATAL", err)
 		panic(err)
