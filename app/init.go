@@ -1,7 +1,7 @@
 package app
 
 import (
-	"petConnect/app/models"
+	"github.com/nicolasgaraza/petConnect/app/models"
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql" //MySQL driver for gorm

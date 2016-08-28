@@ -1,7 +1,7 @@
 package app
 
 import (
-	"petConnect/app/models"
+	"github.com/nicolasgaraza/petConnect/app/models"
 
 	"github.com/jinzhu/gorm"
 	"github.com/revel/revel"

@@ -1,8 +1,9 @@
 package controllers
 
 import (
-	"petConnect/app"
-	"petConnect/app/models"
+	"github.com/nicolasgaraza/petConnect/app/models"
+
+	"github.com/nicolasgaraza/petConnect/app"
 
 	"github.com/revel/revel"
 )
